@@ -22,6 +22,7 @@ def CRUD():
         os.system('clear')
         print('1. Crear Usuario')
         print('2. Consultar Usuario')
+        print('3. Actualizar Usuario')
         option = input('Escribe la opcion:')
 
         if option == '1':
@@ -36,14 +37,48 @@ def CRUD():
             time.sleep(2)
 
         if option == '2':
-            userDNI = input('Escribe DNI a consultar:')
+            userFound = False
+            validateUserDNI = True
+            while validateUserDNI:
+                userDNI = input('Escribe DNI a consultar:')
+                for user in listUsers:
+                    # VALIDA SI EXISTE EL USUARIO
+                    if userDNI == user['dni']:
+                        # SI EXISTE
+                        userFound = True
+                        validateUserDNI = False
+                        print('DATA DEL USUARIO')
+                        print(
+                            f"ID del usuario: {user['id']} \nNombre del usuario: {user['name']} \nEdad del usuario: {user['age']} \nNacionalidad del usuario: {user['nationality']} \nDNI del usuario: {user['dni']}")
+                        time.sleep(5)
+                        continue
+                if not userFound:
+                    print('Usuario no existe, digite nuevamente')
+                    time.sleep(5)
+
+        if option == '3':
+            userDNI = input('Escribe DNI a actualizar')
+            flagContar = 0
             for user in listUsers:
+                flagContar = flagContar + 1
+                # VALIDA SI EXISTE EL USUARIO, Y SI NO EXISTE. QUE?
                 if userDNI == user['dni']:
                     print('DATA DEL USUARIO')
                     print(
-                        f"ID del usuario: {user['id']} \nNombre del usuario: {user['name']} \nEdad del usuario: {user['age']} \nNacionalidad del usuario: {user['nationality']} \nDNI del usuario: {user['dni']}")
+                        f"1. Nombre del usuario: {user['name']} \n2. Edad del usuario: {user['age']} \n3. Nacionalidad del usuario: {user['nationality']}")
                     time.sleep(5)
- 
+
+                    print('1. Actualizar Nombre')
+                    print('2. Actualizar Edad')
+                    print('3. Actualizar Nacionalidad')
+                    optionUpdate = input(
+                        'Elige cual opcion quieres actualizar')
+
+                    if optionUpdate == '1':
+                        user['name'] = input('Nombre: ')
+                    listUsers.pop()
+                    listUsers.append(user)
+
 
 if __name__ == '__main__':
     # file = 'database.csv'
