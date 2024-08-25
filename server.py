@@ -24,13 +24,18 @@ def CRUD():
         print('2. Consultar Usuario')
         print('3. Actualizar Usuario')
         print('4. Eliminar Usuario')
-        option = input('Escribe la opcion: ')
+        option = input('Que Quieres Hacer?: ')
 
         if option == '1':
+            userDNI = input('Escribe tu DNI: ')
+
+            for user in listUsers:
+                if userDNI == user['dni']:
+                    print('Usuario ya existe')
+                    return
             userName = input('Escribe tu nombre: ')
             userAge = input('Escribe tu edad: ')
             userNationality = input('Escribe tu nacionalidad: ')
-            userDNI = input('Escribe tu DNI: ')
             listUsers.append(initialUserJson(id=len(listUsers), userName=userName, userAge=userAge,
                                              userNationality=userNationality, userDNI=userDNI))
             print('Usuario creado exitosamente')
@@ -121,6 +126,10 @@ def CRUD():
                         print('Eliminacion cancelada')
                         time.sleep(3)
                     break
+
+                if not userFound:
+                    print('No se encontró un usuario con ese DNI.')
+                    time.sleep(2)
 
 
 if __name__ == '__main__':
